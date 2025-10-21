@@ -32,7 +32,6 @@ export const BuildOnBaseSection = memo(function BuildOnBaseSection() {
             rel="noopener noreferrer"
             className="tw-shadow-md hover:tw-shadow-xl dark:tw-shadow-gray-800 tw-transition-all tw-duration-300 tw-border-[1px] tw-p-3 tw-px-4 tw-border-black dark:tw-border-white tw-rounded-md tw-flex tw-gap-2 tw-place-items-center hover:tw-bg-black hover:tw-text-white dark:hover:tw-bg-white dark:hover:tw-text-black"
           >
-            {/* <i className="bi bi-box-arrow-up-right" /> */}
             <span>View Smart Contract</span>
           </a>
         </div>
@@ -208,12 +207,20 @@ export const CategoriesSection = memo(function CategoriesSection() {
               Certificate Categories
             </h2>
 
-            <a
-              href="#generator"
+            <button
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                setTimeout(() => {
+                  const launchButton = document.querySelector(
+                    '[aria-label="Launch application"]'
+                  ) as HTMLButtonElement;
+                  launchButton?.click();
+                }, 500);
+              }}
               className="btn !tw-mt-8 !tw-bg-transparent !tw-text-black !tw-border-[1px] !tw-border-black dark:!tw-border-white dark:!tw-text-white hover:!tw-bg-black hover:!tw-text-white dark:hover:!tw-bg-white dark:hover:!tw-text-black tw-transition-all"
             >
               Generate Proof
-            </a>
+            </button>
           </div>
         </div>
 
@@ -251,12 +258,12 @@ export const CategoriesSection = memo(function CategoriesSection() {
 });
 
 // ============================================
-// KEY FEATURES DATA (UPDATED WITH NEW IMAGES)
+// KEY FEATURES DATA
 // ============================================
 const KEY_FEATURES_DATA = [
   {
     id: 1,
-    image: "/assets/images/home/ai-powered-feature.png", 
+    image: "/assets/images/home/ai-powered-feature.png",
     title: "AI-Powered Smart Generation",
     description:
       "AI analyzes your input and automatically generates professional certificates with metadata, categories, and visual themes.",
@@ -270,28 +277,28 @@ const KEY_FEATURES_DATA = [
   },
   {
     id: 3,
-    image: "/assets/images/home/json-export-feature.png", 
+    image: "/assets/images/home/json-export-feature.png",
     title: "JSON Export",
     description:
       "Export structured JSON metadata perfect for Web3 integrations, portfolio sites, or any dApp.",
   },
   {
     id: 4,
-    image: "/assets/images/home/nft-gallery.png", 
+    image: "/assets/images/home/nft-gallery.png",
     title: "NFT Gallery",
     description:
       "All your minted certificates are stored in your wallet. View, share, and manage your onchain proof collection anytime.",
   },
   {
     id: 5,
-    image: "/assets/images/home/blockchain-verified.png", 
+    image: "/assets/images/home/blockchain-verified.png",
     title: "Blockchain Verified",
     description:
       "Every certificate is permanently stored onchain and verifiable through Base Network explorer. No centralized database needed.",
   },
   {
     id: 6,
-    image: "/assets/images/home/custom-themes.png", 
+    image: "/assets/images/home/custom-themes.png",
     title: "Custom Visual Themes",
     description:
       "Choose from futuristic, holographic, cyber, or minimal themes. AI generates matching visual concepts for your NFT.",
@@ -434,21 +441,29 @@ export const CTASection = memo(function CTASection() {
     <section className="tw-relative tw-flex tw-p-2 tw-w-full tw-min-h-[60vh] tw-flex-col tw-place-content-center tw-place-items-center tw-overflow-hidden">
       <div className="reveal-up tw-w-full tw-h-full tw-min-h-[450px] max-lg:tw-max-w-full tw-rounded-md lg:tw-py-[5%] tw-bg-gradient-to-br tw-from-[#f6f7fb] tw-to-[#e8eaf6] dark:tw-from-[#171717] dark:tw-to-[#1a1a1a] tw-place-content-center tw-items-center tw-flex tw-flex-col tw-max-w-[80%] tw-gap-4 tw-p-4 tw-shadow-xl">
         <h2 className="reveal-up tw-text-5xl tw-font-medium max-md:tw-text-3xl tw-text-center tw-leading-normal">
-          Generate Your First Certificate Now
+          Ready to Create Your First Certificate?
         </h2>
-        <p className="tw-text-gray-600 dark:tw-text-gray-400 tw-text-center tw-max-w-xl">
-          Join thousands of users creating verifiable onchain proof for their
-          achievements on Base Network
+        <p className="tw-text-gray-600 dark:tw-text-gray-400 tw-text-center tw-max-w-xl tw-text-lg max-md:tw-text-base">
+          Launch the app and start generating verifiable onchain proof in
+          seconds
         </p>
 
         <div className="tw-mt-8 tw-relative tw-flex max-lg:tw-flex-col tw-gap-5">
-          <a
-            href="#generator"
-            className="btn reveal-up !tw-rounded-full !tw-p-4 !tw-px-6 tw-font-medium tw-flex tw-gap-2 tw-shadow-lg hover:tw-scale-105 tw-transition-transform"
+          <button
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              setTimeout(() => {
+                const launchButton = document.querySelector(
+                  '[aria-label="Launch application"]'
+                ) as HTMLButtonElement;
+                launchButton?.click();
+              }, 500);
+            }}
+            className="btn reveal-up !tw-rounded-full !tw-p-4 !tw-px-8 tw-font-medium tw-flex tw-gap-2 tw-shadow-lg hover:tw-scale-105 tw-transition-transform tw-text-lg"
           >
-            <i className="bi bi-sparkles" />
-            <span>Start Generating</span>
-          </a>
+            <i className="bi bi-rocket-takeoff" />
+            <span>Launch App Now</span>
+          </button>
         </div>
       </div>
     </section>
