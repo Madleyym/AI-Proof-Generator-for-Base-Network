@@ -17,7 +17,7 @@ import {
 export default function Home() {
   useEffect(() => {
     console.log(
-      "%c🚀 ProofBaseAI Generator v2.0",
+      "%cProofBaseAI Generator v2.0",
       "color: #6366f1; font-size: 20px; font-weight: bold;"
     );
     console.log(
