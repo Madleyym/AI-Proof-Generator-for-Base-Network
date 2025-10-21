@@ -89,6 +89,7 @@ export default function HeroSection() {
   const [showVideo, setShowVideo] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showMobileSelect, setShowMobileSelect] = useState(false);
+  const [walletConnected, setWalletConnected] = useState(false);
   const [toast, setToast] = useState<{
     message: string;
     type: "success" | "error" | "info";
@@ -96,6 +97,23 @@ export default function HeroSection() {
 
   // ==================== MEMOIZED VALUES ====================
   const currentModeData = useMemo(() => MODES[currentMode], [currentMode]);
+
+  // ==================== CHECK WALLET CONNECTION ====================
+  useEffect(() => {
+    // Check if wallet is already connected in header
+    const checkWalletConnection = () => {
+      const walletStatus = document.getElementById("wallet-status");
+      if (walletStatus) {
+        setWalletConnected(true);
+      }
+    };
+
+    checkWalletConnection();
+
+    // Listen for wallet connection changes
+    const interval = setInterval(checkWalletConnection, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   // ==================== GSAP ANIMATIONS ====================
   useEffect(() => {
@@ -251,6 +269,38 @@ export default function HeroSection() {
         return;
       }
 
+      // Check wallet connection
+      if (!walletConnected) {
+        if (currentMode === "base-chat") {
+          const userMessage: ChatMessage = {
+            role: "user",
+            content: trimmedPrompt,
+            timestamp: Date.now(),
+          };
+          setChatMessages((prev) => [...prev, userMessage]);
+          setPrompt("");
+
+          await new Promise((resolve) => setTimeout(resolve, 800));
+
+          const aiResponse: ChatMessage = {
+            role: "assistant",
+            content:
+              "Please connect your wallet to continue. You can connect your wallet using the button in the header.",
+            timestamp: Date.now(),
+          };
+
+          setChatMessages((prev) => [...prev, aiResponse]);
+          setToast({ message: "Wallet connection required", type: "info" });
+          return;
+        } else {
+          setToast({
+            message: "Please connect your wallet first",
+            type: "error",
+          });
+          return;
+        }
+      }
+
       if (trimmedPrompt.length > 500) {
         setToast({
           message: "Prompt too long (max 500 characters)",
@@ -329,6 +379,7 @@ export default function HeroSection() {
       currentModeData,
       generateBaseKnowledgeResponse,
       simulateTransaction,
+      walletConnected,
     ]
   );
 
@@ -373,7 +424,7 @@ export default function HeroSection() {
   const handleModeChange = useCallback((mode: string) => {
     setCurrentMode(mode);
     setCertificate(null);
-    setChatMessages([]);
+    // Don't clear chat messages when changing mode
     setShowMobileSelect(false);
   }, []);
 
@@ -490,6 +541,8 @@ export default function HeroSection() {
                 showMobileSelect={showMobileSelect}
                 setShowMobileSelect={setShowMobileSelect}
                 mobileSelectRef={mobileSelectRef}
+                walletConnected={walletConnected}
+                toggleFullscreen={toggleFullscreen}
               />
             </div>
           </div>
@@ -532,7 +585,6 @@ export default function HeroSection() {
                 aria-label="Launch application"
               >
                 <span>Launch App</span>
-                {/* <i className="bi bi-arrow-up-right-square group-hover:tw-translate-x-1 group-hover:tw--translate-y-1 tw-duration-300" /> */}
               </button>
             </div>
           </div>
@@ -550,7 +602,8 @@ export default function HeroSection() {
               className="tw-relative tw-max-w-[80%] tw-bg-white dark:tw-bg-black tw-border-[1px] dark:tw-border-[#36393c] lg:tw-w-[1024px] lg:tw-h-[650px] tw-flex tw-shadow-2xl max-lg:tw-h-[600px] max-lg:tw-w-full tw-overflow-hidden tw-min-w-[320px] md:tw-w-full tw-min-h-[450px] tw-rounded-xl tw-bg-transparent max-md:tw-max-w-full max-md:tw-h-[550px]"
             >
               <div className="animated-border tw-w-full tw-h-full tw-p-[2px]">
-                <div className="tw-w-full tw-h-full tw-rounded-xl tw-overflow-hidden tw-flex">
+                <div className="tw-w-full tw-h-full tw-rounded-xl tw-overflow-hidden tw-flex tw-relative">
+                  {/* Dashboard Content (Functional) */}
                   <DashboardContent
                     currentMode={currentMode}
                     setCurrentMode={handleModeChange}
@@ -570,6 +623,8 @@ export default function HeroSection() {
                     showMobileSelect={showMobileSelect}
                     setShowMobileSelect={setShowMobileSelect}
                     mobileSelectRef={mobileSelectRef}
+                    walletConnected={walletConnected}
+                    toggleFullscreen={toggleFullscreen}
                   />
                 </div>
               </div>
@@ -582,7 +637,7 @@ export default function HeroSection() {
 }
 
 // ============================
-// DASHBOARD CONTENT COMPONENT 
+// DASHBOARD CONTENT COMPONENT
 // ============================
 function DashboardContent({
   currentMode,
@@ -603,6 +658,8 @@ function DashboardContent({
   showMobileSelect,
   setShowMobileSelect,
   mobileSelectRef,
+  walletConnected,
+  toggleFullscreen,
 }: {
   currentMode: string;
   setCurrentMode: (mode: string) => void;
@@ -622,9 +679,12 @@ function DashboardContent({
   showMobileSelect: boolean;
   setShowMobileSelect: (show: boolean) => void;
   mobileSelectRef: React.RefObject<HTMLDivElement>;
+  walletConnected: boolean;
+  toggleFullscreen: () => void;
 }) {
   return (
     <>
+      {/* ==================== SIDEBAR ==================== */}
       <div className="tw-min-w-[250px] max-lg:tw-hidden tw-p-4 tw-gap-2 tw-flex tw-flex-col tw-bg-gray-100 dark:tw-bg-[#171717] tw-h-full tw-border-r dark:tw-border-gray-800">
         <div className="tw-flex tw-mt-2 tw-gap-2 tw-flex-col">
           {/* General Assistant Section */}
@@ -650,6 +710,7 @@ function DashboardContent({
               Coming Soon
             </span>
           </div>
+          
           {/* Achievement, Contribution, Onchain Sections */}
           {Object.entries(MODES)
             .filter(([key]) => key !== "base-chat")
@@ -671,19 +732,49 @@ function DashboardContent({
             ))}
         </div>
 
-        <div className="tw-mt-auto tw-w-full tw-flex tw-px-6 tw-place-content-center">
-          <button className="btn !tw-w-full !tw-bg-transparent tw-duration-[0.3s] hover:tw-shadow-lg hover:!tw-bg-black hover:!tw-text-white dark:hover:!tw-bg-white dark:hover:!tw-text-black !tw-border-[1px] !tw-border-black !tw-text-black dark:!tw-border-white dark:!tw-text-white tw-flex tw-gap-2 !tw-py-3">
-            <i className="bi bi-wallet2" />
-            <span>Connect Wallet</span>
-          </button>
-        </div>
+        {/* Wallet Status Badge (jika di preview mode dan belum connect) */}
+        {!isFullscreen && !walletConnected && (
+          <div className="tw-mt-auto tw-w-full tw-p-3 tw-bg-yellow-50 dark:tw-bg-yellow-900/20 tw-rounded-lg tw-text-center tw-border tw-border-yellow-200 dark:tw-border-yellow-800">
+            <i className="bi bi-exclamation-triangle tw-text-yellow-600 dark:tw-text-yellow-400 tw-text-sm" />
+            <p className="tw-text-xs tw-text-yellow-700 dark:tw-text-yellow-300 tw-mt-1 tw-font-medium">
+              Connect Wallet
+            </p>
+            <p className="tw-text-xs tw-text-gray-600 dark:tw-text-gray-400 tw-mt-1">
+              to unlock all features
+            </p>
+          </div>
+        )}
       </div>
 
       {/* ==================== MAIN CONTENT ==================== */}
       <div
-        className="tw-flex tw-w-full tw-bg-white dark:tw-bg-black tw-h-full tw-flex-col tw-overflow-hidden"
+        className="tw-flex tw-w-full tw-bg-white dark:tw-bg-black tw-h-full tw-flex-col tw-overflow-hidden tw-relative"
         id="pixa-playground"
       >
+        {/* Expand Button (pojok kanan atas) - hanya muncul di preview mode */}
+        {!isFullscreen && (
+          <button
+            onClick={toggleFullscreen}
+            className="tw-absolute tw-top-3 tw-right-3 tw-z-30 tw-p-2 tw-rounded-lg tw-bg-blue-500 hover:tw-bg-blue-600 tw-text-white tw-shadow-lg tw-transition-all tw-duration-200 hover:tw-scale-110 tw-group"
+            title="Launch fullscreen"
+            aria-label="Launch fullscreen mode"
+          >
+            <svg
+              className="tw-w-5 tw-h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"
+              />
+            </svg>
+          </button>
+        )}
+
         <div className="tw-relative tw-w-full tw-flex tw-flex-col tw-h-full tw-overflow-hidden">
           {/* ==================== CHAT/CONTENT AREA (SCROLLABLE) ==================== */}
           <div
@@ -859,7 +950,15 @@ function DashboardContent({
                 </pre>
 
                 <div className="tw-mt-6 tw-flex tw-gap-3 tw-flex-wrap">
-                  <button className="btn !tw-bg-[#0052FF] !tw-text-white tw-flex tw-gap-2 hover:tw-scale-105 tw-transition-all tw-shadow-lg">
+                  <button
+                    className="btn !tw-bg-[#0052FF] !tw-text-white tw-flex tw-gap-2 hover:tw-scale-105 tw-transition-all tw-shadow-lg disabled:tw-opacity-50 disabled:tw-cursor-not-allowed"
+                    disabled={!walletConnected}
+                    title={
+                      !walletConnected
+                        ? "Connect wallet first"
+                        : "Mint to Base Network"
+                    }
+                  >
                     <i className="bi bi-coin" />
                     <span>Mint to Base</span>
                   </button>
