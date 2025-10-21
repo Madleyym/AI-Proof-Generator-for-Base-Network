@@ -1,7 +1,7 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect } from "react";
-import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import {
   BuildOnBaseSection,
@@ -13,6 +13,9 @@ import {
   NewsletterSection,
   Footer,
 } from "@/components/Sections";
+
+// Dynamic import Header dengan no SSR
+const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 
 export default function Home() {
   useEffect(() => {
