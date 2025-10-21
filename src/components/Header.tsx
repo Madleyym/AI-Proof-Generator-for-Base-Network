@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useNotification } from "@/components/GlobalNotification";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,7 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { notify } = useNotification();
 
   useEffect(() => {
     setMounted(true);
@@ -60,6 +62,7 @@ export default function Header() {
     setIsDark(!isDark);
     document.documentElement.classList.toggle("tw-dark");
     localStorage.setItem("color-mode", !isDark ? "dark" : "light");
+    notify(`Switched to ${!isDark ? "dark" : "light"} mode`, "info", 2000);
   };
 
   const handleMouseEnter = () => {
@@ -109,7 +112,7 @@ export default function Header() {
       icon: "bi-github",
       title: "GitHub",
       description: "Open source code and contributions",
-      href: "https://github.com/ProofBaseAI",
+      href: "https://github.com/Madleyym/AI-Proof-Generator-for-Base-Network",
       external: true,
     },
     {
@@ -247,7 +250,7 @@ export default function Header() {
             <i className={`bi ${isDark ? "bi-moon" : "bi-sun"} tw-text-xl`} />
           </button>
 
-          {/* RainbowKit Connect Button - Isolated Container */}
+          {/* RainbowKit Connect Button */}
           <div
             id="wallet-status"
             className="max-lg:tw-w-full tw-flex-shrink-0"
@@ -283,7 +286,10 @@ export default function Header() {
                       if (!connected) {
                         return (
                           <button
-                            onClick={openConnectModal}
+                            onClick={() => {
+                              openConnectModal();
+                              notify("Opening wallet connection...", "info");
+                            }}
                             id="connect-wallet-header"
                             className="btn tw-flex tw-gap-2 tw-px-4 tw-py-2 max-lg:tw-w-full max-lg:tw-justify-center tw-transition-all tw-duration-200 hover:tw-shadow-md dark:hover:tw-shadow-blue-900/30 active:tw-scale-95"
                             style={{ contain: "layout" }}
@@ -297,7 +303,13 @@ export default function Header() {
                       if (chain.unsupported) {
                         return (
                           <button
-                            onClick={openChainModal}
+                            onClick={() => {
+                              openChainModal();
+                              notify(
+                                "Please switch to Base Network",
+                                "warning"
+                              );
+                            }}
                             className="btn !tw-bg-red-500 !tw-text-white tw-flex tw-gap-2 tw-px-4 tw-py-2 tw-transition-all tw-duration-200 hover:tw-shadow-md active:tw-scale-95"
                             style={{ contain: "layout" }}
                           >
