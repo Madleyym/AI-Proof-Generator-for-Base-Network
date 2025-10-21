@@ -2,15 +2,16 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI Proof Generator - Create Onchain Certificates on Base Network",
+  title: "ProofBaseAI Generator - Create Onchain Certificates on Base Network",
   description:
     "Generate verifiable AI-powered certificates and mint them as NFTs on Base Network",
   openGraph: {
-    title: "AI Proof Generator - Create Onchain Certificates on Base Network",
+    title:
+      "ProofBaseAI Generator - Create Onchain Certificates on Base Network",
     description:
       "Generate verifiable AI-powered certificates and mint them as NFTs on Base Network",
     type: "website",
-    url: "https://github.com/Nanadaime-oss",
+    url: "https://github.com/ProofBaseAI",
   },
 };
 
