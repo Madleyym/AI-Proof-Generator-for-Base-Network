@@ -1,0 +1,62 @@
+{
+  "knowledge": [
+    {
+      "keywords": [
+        "what is base",
+        "about base",
+        "base network",
+        "how does base work"
+      ],
+      "category": "Overview",
+      "response": "Base is Ethereum's Layer 2 (L2) blockchain solution built by Coinbase. It's designed to provide a secure, low-cost, and developer-friendly environment for building decentralized applications. Base uses optimistic rollup technology to bundle transactions off the main Ethereum chain, resulting in significantly lower gas fees (typically under $0.01) while maintaining Ethereum-level security."
+    },
+    {
+      "keywords": ["gas fee", "transaction cost", "how much", "price", "fees"],
+      "category": "Fees",
+      "response": "Gas fees on Base Network are significantly lower than Ethereum mainnet. Average transaction costs on Base are typically $0.001 - $0.01, compared to Ethereum's $5-$50+ during peak times. This makes Base ideal for frequent transactions, NFT minting, and DeFi activities without worrying about high costs."
+    },
+    {
+      "keywords": ["defi", "protocol", "dapp", "best protocols", "which dapps"],
+      "category": "DeFi",
+      "response": "Popular DeFi protocols on Base include:\n• Aerodrome (DEX with concentrated liquidity)\n• Uniswap V3 (decentralized exchange)\n• Curve Finance (stablecoin swaps)\n• Aave (lending protocol)\n• Compound (money markets)\n• BaseSwap (native DEX)\n• Moonwell (lending & borrowing)\n• Seamless Protocol (DeFi suite)\n\nThe ecosystem is growing rapidly with new protocols launching weekly."
+    },
+    {
+      "keywords": [
+        "bridge",
+        "transfer",
+        "move assets",
+        "how to bridge",
+        "send to base"
+      ],
+      "category": "Bridging",
+      "response": "To bridge assets to Base Network:\n\n1. Visit the official Base Bridge: bridge.base.org\n2. Connect your wallet (MetaMask/Coinbase Wallet)\n3. Select source chain (Ethereum) and destination (Base)\n4. Enter amount to bridge\n5. Approve transaction and confirm\n6. Wait 1-2 minutes for completion\n\nAlternative bridges: Hop Protocol, Across Protocol, Stargate Finance.\n\nNote: Always verify you're on the official bridge URL to avoid scams!"
+    },
+    {
+      "keywords": ["security", "safe", "secure", "audit", "trust"],
+      "category": "Security",
+      "response": "Base Security Features:\n\n✅ Ethereum-level security through optimistic rollups\n✅ All transactions posted to Ethereum mainnet\n✅ Built by Coinbase (publicly traded, regulated company)\n✅ Multiple security audits by leading firms\n✅ Battle-tested smart contract infrastructure\n✅ 7-day withdrawal period for maximum security\n✅ Open-source codebase\n\nBase inherits Ethereum's security guarantees while providing faster, cheaper transactions."
+    },
+    {
+      "keywords": ["nft", "mint nft", "create nft", "nft marketplace"],
+      "category": "NFTs",
+      "response": "NFT Ecosystem on Base:\n\n• OpenSea (largest NFT marketplace)\n• Zora (creator-focused platform)\n• Mint.fun (NFT minting aggregator)\n• Base Names (onchain identity)\n• Farcaster frames (social NFTs)\n\nMinting NFTs on Base costs less than $0.01 in gas fees, making it perfect for creators and collectors!"
+    },
+    {
+      "keywords": ["wallet", "metamask", "coinbase wallet", "which wallet"],
+      "category": "Wallets",
+      "response": "Recommended Wallets for Base:\n\n1. **Coinbase Wallet** (native Base integration)\n2. **MetaMask** (most popular, easy setup)\n3. **Rainbow Wallet** (mobile-friendly)\n4. **Rabby Wallet** (multi-chain support)\n\nTo connect Base to MetaMask:\n• Network Name: Base\n• RPC URL: https://mainnet.base.org\n• Chain ID: 8453\n• Currency: ETH\n• Block Explorer: https://basescan.org"
+    },
+    {
+      "keywords": [
+        "developer",
+        "build",
+        "deploy",
+        "smart contract",
+        "development"
+      ],
+      "category": "Development",
+      "response": "Building on Base:\n\n📚 **Documentation**: docs.base.org\n🛠️ **Tools**: Hardhat, Foundry, Remix\n🔗 **RPC Endpoint**: https://mainnet.base.org\n📦 **Testnet**: Base Sepolia (free ETH from faucet)\n\n**Quick Start:**\n1. Use existing Ethereum tools (Base is EVM-compatible)\n2. Deploy contracts same as Ethereum\n3. Test on Base Sepolia testnet\n4. Deploy to Base mainnet\n\nBase offers grants for builders: base.org/grants"
+    }
+  ],
+  "fallbackResponse": "Great question about Base Network! Base is Coinbase's Layer 2 solution built on Ethereum, offering low fees (~$0.01), fast transactions, and full EVM compatibility. It's perfect for DeFi, NFTs, and dApps.\n\nWould you like to know more about:\n• Gas fees and costs\n• DeFi protocols\n• Bridging assets\n• NFT ecosystem\n• Security features\n• Building on Base"
+}
