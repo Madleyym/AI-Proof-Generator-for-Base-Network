@@ -625,25 +625,50 @@ function DashboardContent({
 }) {
   return (
     <>
-      {/* ==================== SIDEBAR ==================== */}
       <div className="tw-min-w-[250px] max-lg:tw-hidden tw-p-4 tw-gap-2 tw-flex tw-flex-col tw-bg-gray-100 dark:tw-bg-[#171717] tw-h-full tw-border-r dark:tw-border-gray-800">
         <div className="tw-flex tw-mt-2 tw-gap-2 tw-flex-col">
-          {Object.entries(MODES).map(([key, mode]: [string, any]) => (
-            <button
-              key={key}
-              onClick={() => setCurrentMode(key)}
-              className={`tw-flex tw-rounded-lg tw-gap-3 tw-p-3 tw-items-center tw-text-left tw-transition-all tw-duration-200 ${
-                currentMode === key
-                  ? "tw-bg-blue-100 dark:tw-bg-blue-900/30 tw-shadow-md tw-scale-[1.02]"
-                  : "hover:tw-bg-gray-200 dark:hover:tw-bg-[#2d2d2ddb] hover:tw-shadow-sm"
-              }`}
-              aria-label={`Switch to ${mode.name} mode`}
-              aria-pressed={currentMode === key}
-            >
-              <i className={`bi ${mode.icon} tw-text-xl`} />
-              <span className="tw-font-medium">{mode.name}</span>
-            </button>
-          ))}
+          {/* General Assistant Section */}
+          <button
+            onClick={() => setCurrentMode("base-chat")}
+            className={`tw-flex tw-rounded-lg tw-gap-3 tw-p-3 tw-items-center tw-text-left tw-transition-all tw-duration-200 ${
+              currentMode === "base-chat"
+                ? "tw-bg-blue-100 dark:tw-bg-blue-900/30 tw-shadow-md tw-scale-[1.02]"
+                : "hover:tw-bg-gray-200 dark:hover:tw-bg-[#2d2d2ddb] hover:tw-shadow-sm"
+            }`}
+            aria-label="Switch to General Assistant mode"
+            aria-pressed={currentMode === "base-chat"}
+          >
+            <i className="bi bi-robot tw-text-xl" />
+            <span className="tw-font-medium">General Assistant</span>
+          </button>
+
+          {/* Divider/Separator */}
+          <div className="tw-my-2 tw-border-t tw-border-gray-300 dark:tw-border-gray-700" />
+          {/* Coming Soon Label */}
+          <div className="tw-flex tw-items-center tw-gap-2 tw-px-3 tw-py-1">
+            <span className="tw-text-xs tw-text-gray-500 dark:tw-text-gray-400 tw-italic">
+              Coming Soon
+            </span>
+          </div>
+          {/* Achievement, Contribution, Onchain Sections */}
+          {Object.entries(MODES)
+            .filter(([key]) => key !== "base-chat")
+            .map(([key, mode]: [string, any]) => (
+              <button
+                key={key}
+                onClick={() => setCurrentMode(key)}
+                className={`tw-flex tw-rounded-lg tw-gap-3 tw-p-3 tw-items-center tw-text-left tw-transition-all tw-duration-200 ${
+                  currentMode === key
+                    ? "tw-bg-blue-100 dark:tw-bg-blue-900/30 tw-shadow-md tw-scale-[1.02]"
+                    : "hover:tw-bg-gray-200 dark:hover:tw-bg-[#2d2d2ddb] hover:tw-shadow-sm"
+                }`}
+                aria-label={`Switch to ${mode.name} mode`}
+                aria-pressed={currentMode === key}
+              >
+                <i className={`bi ${mode.icon} tw-text-xl`} />
+                <span className="tw-font-medium">{mode.name}</span>
+              </button>
+            ))}
         </div>
 
         <div className="tw-mt-auto tw-w-full tw-flex tw-px-6 tw-place-content-center">
