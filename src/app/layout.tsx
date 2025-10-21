@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Web3Provider } from "../../providers/Web3Provider";
 
 export const metadata: Metadata = {
   title: "ProofBaseAI Generator - Create Onchain Certificates on Base Network",
@@ -21,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning={true}>
       <head>
         <link
           rel="shortcut icon"
@@ -36,8 +37,11 @@ export default function RootLayout({
           referrerPolicy="no-referrer"
         />
       </head>
-      <body className="tw-flex tw-min-h-[100vh] tw-flex-col tw-bg-[#fcfcfc] tw-text-black dark:tw-bg-black dark:tw-text-white">
-        {children}
+      <body
+        className="tw-flex tw-min-h-[100vh] tw-flex-col tw-bg-[#fcfcfc] tw-text-black dark:tw-bg-black dark:tw-text-white"
+        suppressHydrationWarning={true}
+      >
+        <Web3Provider>{children}</Web3Provider>
       </body>
     </html>
   );
