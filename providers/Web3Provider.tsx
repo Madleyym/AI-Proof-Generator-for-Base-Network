@@ -27,10 +27,7 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
     setIsDark(isDarkMode);
   }, []);
 
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
+  //   ALWAYS wrap with provider, don't check mounted status
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
@@ -38,7 +35,7 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
           theme={isDark ? darkTheme() : lightTheme()}
           modalSize="compact"
         >
-          {children}
+          {mounted ? children : null}
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
