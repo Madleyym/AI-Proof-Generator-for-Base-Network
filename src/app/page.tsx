@@ -1,7 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useEffect } from "react";
+import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import {
   BuildOnBaseSection,
@@ -14,9 +14,6 @@ import {
   Footer,
 } from "@/components/Sections";
 
-// Dynamic import Header dengan no SSR
-const Header = dynamic(() => import("@/components/Header"), { ssr: false });
-
 export default function Home() {
   useEffect(() => {
     console.log(
@@ -28,7 +25,7 @@ export default function Home() {
       "color: #666; font-size: 12px;"
     );
     console.log(
-      "%cGitHub: https://github.com/ProofBaseAI",
+      "%cGitHub: https://github.com/Madleyym/AI-Proof-Generator-for-Base-Network",
       "color: #999; font-size: 10px;"
     );
   }, []);
