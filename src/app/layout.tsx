@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Web3Provider } from "../../providers/Web3Provider";
+import { GlobalNotificationProvider } from "@/components/GlobalNotification";
 
 export const metadata: Metadata = {
   title: "ProofBaseAI Generator - Create Onchain Certificates on Base Network",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
     description:
       "Generate verifiable AI-powered certificates and mint them as NFTs on Base Network",
     type: "website",
-    url: "https://github.com/ProofBaseAI",
+    url: "https://pixaibase.vercel.app",
   },
 };
 
@@ -41,8 +42,18 @@ export default function RootLayout({
         className="tw-flex tw-min-h-[100vh] tw-flex-col tw-bg-[#fcfcfc] tw-text-black dark:tw-bg-black dark:tw-text-white"
         suppressHydrationWarning={true}
       >
-        <Web3Provider>{children}</Web3Provider>
+        <Web3Provider>
+          <GlobalNotificationProvider>{children}</GlobalNotificationProvider>
+        </Web3Provider>
       </body>
     </html>
   );
+}
+
+export {};
+
+declare global {
+  interface Window {
+    ethereum?: any;
+  }
 }
