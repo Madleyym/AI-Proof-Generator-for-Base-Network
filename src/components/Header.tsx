@@ -153,7 +153,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="lg:tw-px-4 tw-max-w-[100vw] max-lg:tw-top-0 tw-fixed tw-top-4 lg:tw-left-1/2 lg:tw--translate-x-1/2 tw-z-20 tw-flex tw-h-[60px] tw-w-full tw-text-gray-700 tw-bg-white dark:tw-text-gray-200 dark:tw-bg-[#17181b] tw-px-[3%] tw-rounded-md lg:tw-max-w-5xl tw-shadow-md dark:tw-shadow-gray-700 lg:tw-justify-around lg:!tw-backdrop-blur-lg lg:tw-opacity-[0.99]">
+    <header className="lg:tw-px-4 tw-max-w-[100vw] max-lg:tw-top-0 tw-fixed tw-top-4 lg:tw-left-1/2 lg:tw--translate-x-1/2 tw-z-20 tw-flex tw-h-[60px] tw-w-full tw-text-gray-700 tw-bg-white dark:tw-text-gray-200 dark:tw-bg-[#17181b] tw-px-[3%] tw-rounded-md lg:tw-max-w-5xl tw-shadow-md dark:tw-shadow-gray-700 lg:tw-justify-between lg:!tw-backdrop-blur-lg lg:tw-opacity-[0.99]">
       {/* Logo */}
       <a className="tw-flex tw-p-[4px] tw-gap-2 tw-place-items-center" href="#">
         <div className="tw-h-[50px] tw-w-[50px]">
@@ -179,7 +179,7 @@ export default function Header() {
           maxHeight: isOpen ? "100vh" : "",
         }}
       >
-        <nav className="tw-relative tw-flex tw-h-full max-lg:tw-h-max tw-w-max tw-gap-5 tw-text-base max-lg:tw-mt-[30px] max-lg:tw-flex-col max-lg:tw-gap-5 lg:tw-mx-auto tw-place-items-center max-lg:tw-w-full max-lg:tw-px-6">
+        <nav className="tw-relative tw-flex tw-h-full max-lg:tw-h-max tw-w-max tw-gap-5 tw-text-base max-lg:tw-mt-[30px] max-lg:tw-flex-col max-lg:tw-gap-5 tw-place-items-center max-lg:tw-w-full max-lg:tw-px-6">
           <a
             className="header-links max-lg:tw-w-full max-lg:tw-text-center max-lg:tw-py-2"
             href="#features"
@@ -260,7 +260,7 @@ export default function Header() {
         </nav>
 
         {/* Right Side Actions */}
-        <div className="lg:tw-mx-4 tw-flex tw-place-items-center tw-gap-[20px] tw-text-base max-lg:tw-w-full max-lg:tw-flex-col max-lg:tw-place-content-center max-lg:tw-mt-auto max-lg:tw-pt-6 max-lg:tw-pb-8 max-lg:tw-border-t max-lg:dark:tw-border-gray-800">
+        <div className="lg:tw-ml-auto tw-flex tw-place-items-center tw-gap-[20px] tw-text-base max-lg:tw-w-full max-lg:tw-flex-col max-lg:tw-place-content-center max-lg:tw-mt-auto max-lg:tw-pt-6 max-lg:tw-pb-8 max-lg:tw-border-t max-lg:dark:tw-border-gray-800">
           <button
             onClick={toggleTheme}
             className="header-links tw-text-gray-600 dark:tw-text-gray-300 tw-p-2 tw-rounded-lg max-lg:active:tw-bg-gray-100 max-lg:dark:active:tw-bg-gray-800"
